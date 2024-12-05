@@ -1,3 +1,4 @@
+
 package com.example.constraintlayout
 
 import androidx.appcompat.app.AppCompatActivity
@@ -8,42 +9,49 @@ import android.text.TextWatcher
 import android.util.Log
 import android.view.View
 import android.widget.EditText
+import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import java.util.*
 
 class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListener {
     private lateinit var tts: TextToSpeech
     private lateinit var edtConta: EditText
+    private lateinit var divideResult : TextView
+    private lateinit var edtTotalPrice : EditText
+    private var peopleNumber: Int = 0
+    private var totalPrice : Double = 0.0
+
     private var ttsSucess: Boolean = false;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        edtConta = findViewById<EditText>(R.id.edtConta)
+        edtConta = findViewById<EditText>(R.id.edtConta) //numero de pessoas
+        divideResult = findViewById(R.id.result)
+        edtTotalPrice = findViewById(R.id.editPrice)
         edtConta.addTextChangedListener(this)
+        edtTotalPrice.addTextChangedListener(this)
         // Initialize TTS engine
         tts = TextToSpeech(this, this)
 
     }
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-       Log.d("PDM24","Antes de mudar")
-
-    }
+                // Não utilizado neste exemplo
+            }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        Log.d("PDM24","Mudando")
+        val people = (edtConta.text.toString()).toIntOrNull() ?: 0
+        val price = (edtTotalPrice.text.toString()).toDoubleOrNull() ?: 0.0
+        divideResult.text = calculateDivision(people,price)
     }
+
+    private fun calculateDivision(people: Int, price: Double): String = "R$${(price / people).toString()}"
 
     override fun afterTextChanged(s: Editable?) {
-        Log.d ("PDM24", "Depois de mudar")
-
-        val valor: Double
-
-        if(s.toString().length>0) {
-             valor = s.toString().toDouble()
-            Log.d("PDM24", "v: " + valor)
-        //    edtConta.setText("9")
-        }
+    // Não utilizado neste exemplo
     }
+
+
 
     fun clickFalar(v: View){
         if (tts.isSpeaking) {
