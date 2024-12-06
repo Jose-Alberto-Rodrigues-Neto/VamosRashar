@@ -1,3 +1,10 @@
+/*Todo:As features principais são:
+   (2 pontos) - Por enquanto, o aplicativo só faz divisões do valor pelo número de pessoas
+   (2 pontos) - Mas ele já tem um ícone
+   (2 pontos) - Já permite o compartilhamento do valor final
+   (2 pontos) - Fala o valor calculado usando TTS
+   [Feito] (2 pontos) - O usuário não precisa clicar para calcular, ele já faz automaticamente após o preenchimento dos campos de valor e número de pessoas
+    Envie o trabalho usando um PDF com o printscreen da tela e um link para o repositório do GitHub (ou similar) do projeto*/
 
 package com.example.constraintlayout
 
@@ -11,6 +18,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import androidx.core.widget.addTextChangedListener
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.util.*
 
 class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListener {
@@ -18,6 +26,7 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
     private lateinit var edtConta: EditText
     private lateinit var divideResult : TextView
     private lateinit var edtTotalPrice : EditText
+    private lateinit var speaker : FloatingActionButton
     private var peopleNumber: Int = 0
     private var totalPrice : Double = 0.0
 
@@ -28,10 +37,16 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         edtConta = findViewById<EditText>(R.id.edtConta) //numero de pessoas
         divideResult = findViewById(R.id.result)
         edtTotalPrice = findViewById(R.id.editPrice)
+        speaker = findViewById(R.id.floatingTTSButton)
+
+
         edtConta.addTextChangedListener(this)
         edtTotalPrice.addTextChangedListener(this)
         // Initialize TTS engine
         tts = TextToSpeech(this, this)
+        speaker.setOnClickListener {
+            clickFalar()
+        }
 
     }
 
@@ -45,26 +60,20 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         divideResult.text = calculateDivision(people,price)
     }
 
-    private fun calculateDivision(people: Int, price: Double): String = "R$${(price / people).toString()}"
-
     override fun afterTextChanged(s: Editable?) {
     // Não utilizado neste exemplo
     }
 
+    private fun calculateDivision(people: Int, price: Double): String = "R$${(price / people)}"
 
-
-    fun clickFalar(v: View){
+    fun clickFalar(){
         if (tts.isSpeaking) {
             tts.stop()
         }
         if(ttsSucess) {
             Log.d ("PDM23", tts.language.toString())
-            tts.speak("Oi Sumido", TextToSpeech.QUEUE_FLUSH, null, null)
+            tts.speak("Cada um terá que pagar ${divideResult.text}", TextToSpeech.QUEUE_FLUSH, Bundle(), null)
         }
-
-
-
-
     }
     override fun onDestroy() {
             // Release TTS engine resources
