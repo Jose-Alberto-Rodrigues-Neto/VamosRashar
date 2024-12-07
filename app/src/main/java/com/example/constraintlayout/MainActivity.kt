@@ -2,7 +2,7 @@
    (2 pontos) - Por enquanto, o aplicativo só faz divisões do valor pelo número de pessoas
    (2 pontos) - Mas ele já tem um ícone
    (2 pontos) - Já permite o compartilhamento do valor final
-   (2 pontos) - Fala o valor calculado usando TTS
+   [Feito] (2 pontos) - Fala o valor calculado usando TTS
    [Feito] (2 pontos) - O usuário não precisa clicar para calcular, ele já faz automaticamente após o preenchimento dos campos de valor e número de pessoas
     Envie o trabalho usando um PDF com o printscreen da tela e um link para o repositório do GitHub (ou similar) do projeto*/
 
@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
     private lateinit var divideResult : TextView
     private lateinit var edtTotalPrice : EditText
     private lateinit var speaker : FloatingActionButton
-    private var peopleNumber: Int = 0
-    private var totalPrice : Double = 0.0
 
     private var ttsSucess: Boolean = false;
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,12 +36,10 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         divideResult = findViewById(R.id.result)
         edtTotalPrice = findViewById(R.id.editPrice)
         speaker = findViewById(R.id.floatingTTSButton)
-
+        tts = TextToSpeech(this, this)
 
         edtConta.addTextChangedListener(this)
         edtTotalPrice.addTextChangedListener(this)
-        // Initialize TTS engine
-        tts = TextToSpeech(this, this)
         speaker.setOnClickListener {
             clickFalar()
         }
@@ -55,13 +51,14 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
             }
 
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-        val people = (edtConta.text.toString()).toIntOrNull() ?: 0
-        val price = (edtTotalPrice.text.toString()).toDoubleOrNull() ?: 0.0
-        divideResult.text = calculateDivision(people,price)
+
     }
 
     override fun afterTextChanged(s: Editable?) {
-    // Não utilizado neste exemplo
+    // Não utilizado neste exemplo7
+        val people = (edtConta.text.toString()).toIntOrNull() ?: 0
+        val price = (edtTotalPrice.text.toString()).toDoubleOrNull() ?: 0.0
+        divideResult.text = calculateDivision(people,price)
     }
 
     private fun calculateDivision(people: Int, price: Double): String = "R$${(price / people)}"
