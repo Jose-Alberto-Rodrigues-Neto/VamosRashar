@@ -8,6 +8,7 @@
 
 package com.example.constraintlayout
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
@@ -42,6 +43,11 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         edtTotalPrice.addTextChangedListener(this)
         speaker.setOnClickListener {
             clickFalar()
+        }
+
+        //começando a compartilhar
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
         }
 
     }
