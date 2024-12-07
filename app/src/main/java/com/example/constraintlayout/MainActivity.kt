@@ -1,6 +1,6 @@
 /*Todo:As features principais são:
-   (2 pontos) - Por enquanto, o aplicativo só faz divisões do valor pelo número de pessoas
-   (2 pontos) - Mas ele já tem um ícone
+   [Feito] (2 pontos) - Por enquanto, o aplicativo só faz divisões do valor pelo número de pessoas
+   [Feito] (2 pontos) - Mas ele já tem um ícone
    (2 pontos) - Já permite o compartilhamento do valor final
    [Feito] (2 pontos) - Fala o valor calculado usando TTS
    [Feito] (2 pontos) - O usuário não precisa clicar para calcular, ele já faz automaticamente após o preenchimento dos campos de valor e número de pessoas
