@@ -1,7 +1,7 @@
 /*Todo:As features principais são:
    [Feito] (2 pontos) - Por enquanto, o aplicativo só faz divisões do valor pelo número de pessoas
    [Feito] (2 pontos) - Mas ele já tem um ícone
-   (2 pontos) - Já permite o compartilhamento do valor final
+   [Feito] - Já permite o compartilhamento do valor final
    [Feito] (2 pontos) - Fala o valor calculado usando TTS
    [Feito] (2 pontos) - O usuário não precisa clicar para calcular, ele já faz automaticamente após o preenchimento dos campos de valor e número de pessoas
     Envie o trabalho usando um PDF com o printscreen da tela e um link para o repositório do GitHub (ou similar) do projeto*/
@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.text.Editable
+import android.text.InputFilter
 import android.text.TextWatcher
 import android.util.Log
 import android.view.View
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
     private lateinit var divideResult : TextView
     private lateinit var edtTotalPrice : EditText
     private lateinit var speaker : FloatingActionButton
+    private lateinit var shareButton : FloatingActionButton
 
     private var ttsSucess: Boolean = false;
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,18 +39,31 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         divideResult = findViewById(R.id.result)
         edtTotalPrice = findViewById(R.id.editPrice)
         speaker = findViewById(R.id.floatingTTSButton)
+        shareButton = findViewById(R.id.floatingSharingButton)
         tts = TextToSpeech(this, this)
 
         edtConta.addTextChangedListener(this)
+        edtConta.filters = arrayOf(InputFilter { source, start, end, dest, dstart, dend ->
+            if (source == "0" && dest.isEmpty()){
+                ""
+            } else {
+                source
+            }
+        })
         edtTotalPrice.addTextChangedListener(this)
         speaker.setOnClickListener {
             clickFalar()
         }
 
-        //começando a compartilhar
+        shareButton.setOnClickListener{
+            clickShare()
+        }
+
+        /*//começando a compartilhar
+        tts.speak("Ola ola ola ", TextToSpeech.QUEUE_FLUSH, Bundle(), null)
         val sendIntent: Intent = Intent().apply {
             action = Intent.ACTION_SEND
-        }
+        }*/
 
     }
 
@@ -67,7 +82,19 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         divideResult.text = calculateDivision(people,price)
     }
 
-    private fun calculateDivision(people: Int, price: Double): String = "R$${(price / people)}"
+    private fun calculateDivision(people: Int, price: Double): String = "R$ ${(price / people)}"
+
+    fun clickShare(){
+        val TextShare = "Valor Total: R$ ${edtTotalPrice.text.toString().toDoubleOrNull() ?: 0.0} \n" +
+                "Total de Pessoas: ${edtConta.text}\n" +
+                "Valor Para cada Pessoa: ${divideResult.text}"
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, TextShare)
+            type = "text/plain"
+        }
+        startActivity(Intent.createChooser(sendIntent, "Compartilhar com: "))
+    }
 
     fun clickFalar(){
         if (tts.isSpeaking) {
