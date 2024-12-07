@@ -59,11 +59,6 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
             clickShare()
         }
 
-        /*//começando a compartilhar
-        tts.speak("Ola ola ola ", TextToSpeech.QUEUE_FLUSH, Bundle(), null)
-        val sendIntent: Intent = Intent().apply {
-            action = Intent.ACTION_SEND
-        }*/
 
     }
 
@@ -82,7 +77,13 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         divideResult.text = calculateDivision(people,price)
     }
 
-    private fun calculateDivision(people: Int, price: Double): String = "R$ ${(price / people)}"
+    private fun calculateDivision(people: Int, price: Double): String {
+        return if (people>0){
+            "R$ ${(price / people)}"
+        } else {
+            "Valor Inválido"
+        }
+    }
 
     fun clickShare(){
         val TextShare = "Valor Total: R$ ${edtTotalPrice.text.toString().toDoubleOrNull() ?: 0.0} \n" +
