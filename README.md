@@ -26,7 +26,7 @@
 
 1. Clone este repositório:
    ```bash
-   git clone https://github.com/seu-usuario/vamos-rachar.git
+   git clone https://github.com/Jose-Alberto-Rodrigues-Neto/VamosRashar.git
    ```
 2. Abra o projeto no **Android Studio**.
 3. Conecte um dispositivo físico ou inicie um emulador.
