@@ -4,6 +4,11 @@
 
 **Vamos Rachar** é um aplicativo nativo desenvolvido em **Kotlin** e **XML**, projetado para simplificar a divisão de contas de restaurante entre amigos. Com um design intuitivo, o aplicativo calcula de forma prática quanto cada pessoa deve pagar, considerando taxas e gorjetas opcionais.
 
+## Faça Download do aplicativo
+
+
+[![](https://markdown-videos-api.jorgenkh.no/youtube/_wL90vErURQ)](https://drive.google.com/file/d/1xm0O8nlsI8hIIbs8wfotJjL2PlxAsDZ2/view?usp=sharing)
+
 ## 📱 Tecnologias Utilizadas
 
 - **Kotlin**: Linguagem principal para o desenvolvimento do aplicativo.
