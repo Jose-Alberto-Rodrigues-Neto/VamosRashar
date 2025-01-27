@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">Vamos Rachar</string>
+    <string name="valor_default">R$0.00</string>
+    <string name="vamos_rachar_banner">Vamos Rachar!</string>
+    <string name="vamos_rachar_title">Vamos Rachar!</string>
+    <string name="vamos_rachar_title_descripition">Vamos Rachar title</string>
+    <string name="insira_o_valor_total">Insira o valor total</string>
+    <string name="insira_o_n_mero_de_pessoas">Insira o número de pessoas</string>
+    <string name="falar_valor_em_voz_alta">Falar valor em voz alta</string>
+    <string name="compartilhar_valor_a_ser_pago">Compartilhar valor a ser pago</string>
+
 </resources>

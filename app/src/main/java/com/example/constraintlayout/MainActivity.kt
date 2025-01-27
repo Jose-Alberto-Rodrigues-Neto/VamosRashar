@@ -42,6 +42,10 @@ class MainActivity : AppCompatActivity() , TextWatcher, TextToSpeech.OnInitListe
         shareButton = findViewById(R.id.floatingSharingButton)
         tts = TextToSpeech(this, this)
 
+        divideResult.contentDescription = divideResult.text
+        edtTotalPrice.contentDescription = edtTotalPrice.text
+        edtConta.contentDescription = edtConta.text
+
         edtConta.addTextChangedListener(this)
         edtConta.filters = arrayOf(InputFilter { source, start, end, dest, dstart, dend ->
             if (source == "0" && dest.isEmpty()){
